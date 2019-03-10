@@ -37,6 +37,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		80A5954A22355B27003A2FD3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				972A72B92056F06C0059EF4A /* LaunchScreen.storyboard */,
+				972A72B42056F06C0059EF4A /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		80A5954B22355B3D003A2FD3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				972A72B22056F06C0059EF4A /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		80A5954C22355B50003A2FD3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		80A5954D22355B64003A2FD3 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				972A72C22056F0E40059EF4A /* GameSound.wav */,
+				972A72B72056F06C0059EF4A /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		972A72A42056F06C0059EF4A = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +89,12 @@
 		972A72AF2056F06C0059EF4A /* EnhanceQuizStarter */ = {
 			isa = PBXGroup;
 			children = (
+				80A5954C22355B50003A2FD3 /* Models */,
+				80A5954A22355B27003A2FD3 /* Views */,
+				80A5954B22355B3D003A2FD3 /* Controllers */,
+				80A5954D22355B64003A2FD3 /* Assets */,
 				972A72B02056F06C0059EF4A /* AppDelegate.swift */,
-				972A72B22056F06C0059EF4A /* ViewController.swift */,
-				972A72B42056F06C0059EF4A /* Main.storyboard */,
-				972A72B72056F06C0059EF4A /* Assets.xcassets */,
-				972A72B92056F06C0059EF4A /* LaunchScreen.storyboard */,
 				972A72BC2056F06C0059EF4A /* Info.plist */,
-				972A72C22056F0E40059EF4A /* GameSound.wav */,
 			);
 			path = EnhanceQuizStarter;
 			sourceTree = "<group>";
