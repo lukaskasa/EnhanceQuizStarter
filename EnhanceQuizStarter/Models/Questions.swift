@@ -42,12 +42,29 @@ struct Questions {
          "Answer": "Poland"],
         ["Question": "Which of these countries won the most medals in the 2012 Summer Games?",
          "Options": ["France", "Germany", "Japan", "Great Britian"],
-         "Answer": "Great Britian"]
+         "Answer": "Great Britian"],
+        ["Question": "In what year was Apple founded in California?",
+         "Options": ["1955", "1976", "2000"],
+         "Answer": "1976"],
+        ["Question": "Is it true that the Earth is flat?",
+         "Options": ["Yes", "No"],
+         "Answer": "No"]
     ]
     
-    func randomQuestion() -> [String : Any] {
-        let randomIndex = GKRandomSource.sharedRandom().nextInt(upperBound: trivia.count)
-        return trivia[randomIndex]
+    func getQuestions(numberOfQuestions: Int) -> [[String : Any]] {
+        var gameQuestions = [[String : Any]]()
+        var trivia = self.trivia
+        trivia.shuffle()
+        
+        if numberOfQuestions > trivia.count { return trivia }
+        
+        //let randomIndex = GKRandomSource.sharedRandom().nextInt(upperBound: trivia.count)
+        
+        for i in 0...numberOfQuestions {
+            gameQuestions.append(trivia[i])
+        }
+        
+        return gameQuestions
     }
     
 }
