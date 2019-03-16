@@ -15,15 +15,21 @@ class ViewController: UIViewController {
     // MARK: - Properties
     
     let questionsPerRound = 4
+    
+    
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion = 0
+    var timePerQuestion = 15
+    
     
     var gameSound: SystemSoundID = 0
     var correctGameSound: SystemSoundID = 0
     var wrongGameSound: SystemSoundID = 0
     
     var questions = Questions().trivia
+    
+    var timer: Timer?
     
 //    let trivia: [[String : String]] = [
 //        ["Question": "Only female koalas can whistle", "Answer": "False"],
@@ -38,7 +44,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var responseField: UILabel!
     @IBOutlet var optionButtons: Array<UIButton>?
     @IBOutlet weak var playAgainButton: UIButton!
-    
+    @IBOutlet weak var timeDisplay: UILabel!
     
     //let answerButtons = [answerButtonOne, answerButtonTwo, answerButtonThree, answerButtonFour]
     
@@ -50,6 +56,10 @@ class ViewController: UIViewController {
         loadWrongGameSound()
         playGameStartSound()
         displayQuestion()
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
     
     // MARK: - Helpers
@@ -78,13 +88,25 @@ class ViewController: UIViewController {
     
     func displayQuestion() {
         
+        
+        guard let optionButtons = optionButtons else { fatalError("Option buttons not available") }
+        
+        for i in 0..<optionButtons.count {
+            optionButtons[i].isEnabled = true
+        }
+        //        answerButtonTwo.isHidden = true
+        //        answerButtonThree.isHidden = true
+        //        answerButtonFour.isHidden = true
+        
+        timePerQuestion = 15
+        resetTimer()
+        
         indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: questions.count)
         
         if questions.count > 0 {
             var questionDictionary = questions[indexOfSelectedQuestion]
         
             guard let options = questionDictionary["Options"] as? [String] else { fatalError("Options do not exist!") }
-            guard let optionButtons = optionButtons else { fatalError("Option buttons not available") }
             
             for i in 0..<optionButtons.count {
                 optionButtons[i].isHidden = true
@@ -113,7 +135,8 @@ class ViewController: UIViewController {
         
         // Display play again button
         playAgainButton.isHidden = false
-        
+        timer?.invalidate()
+        timeDisplay.text = ""
         questionField.text = "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
     }
     
@@ -150,18 +173,73 @@ class ViewController: UIViewController {
         }
     }
     
+    func resetTimer() {
+        timer?.invalidate()
+        timer = nil
+        timeDisplay.textColor = UIColor.white
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startTimer), userInfo: nil, repeats: true)
+    }
+    
+    func pauseTimer(for seconds: Int) {
+        timer?.invalidate()
+        // Converts a delay in seconds to nanoseconds as signed 64 bit integer
+        let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
+        // Calculates a time value to execute the method given current time and delay
+        let dispatchTime = DispatchTime.now() + Double(delay) / Double(NSEC_PER_SEC)
+        
+        // Executes the nextRound method at the dispatch time on the main queue
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
+            self.timer?.fire()
+        }
+    }
+ 
+    @objc func startTimer() {
+        timePerQuestion -= 1
+        timeDisplay.text = "\(timePerQuestion)s"
+        
+        if timePerQuestion == 6 {
+            timeDisplay.textColor = UIColor(red: 253/255.0, green: 162/255.0, blue: 104/255.0, alpha: 1.0)
+        }
+        
+        // Stop The Timer
+        if timePerQuestion == 0 {
+            guard let optionButtons = optionButtons else { fatalError("Option buttons not available") }
+            let selectedQuestionDict = questions[indexOfSelectedQuestion]
+            guard let correctAnswer = selectedQuestionDict["Answer"] as? String else { fatalError("Error: Answer does not exit!") }
+
+            for button in optionButtons {
+                if button.currentTitle == correctAnswer {
+                    button.layer.borderWidth = 2.0
+                    button.layer.borderColor = UIColor(red: 116/255.0, green: 244/255.0, blue: 66/255.0, alpha: 1.0).cgColor
+                }
+            }
+            
+            questionsAsked += 1
+            timePerQuestion = 15
+            pauseTimer(for: 2)
+            loadNextRound(delay: 2)
+            print("Switched Round!")
+        }
+    }
+    
     // MARK: - Actions
     
     @IBAction func checkAnswer(_ sender: UIButton) {
         // Increment the questions asked counter
         questionsAsked += 1
         
+        guard let optionButtons = optionButtons else { fatalError("Option buttons not available") }
+        
+        for i in 0..<optionButtons.count {
+            optionButtons[i].isEnabled = false
+        }
+        
+        
         if questions.count > 0 {
             let selectedQuestionDict = questions[indexOfSelectedQuestion]
         
             guard let correctAnswer = selectedQuestionDict["Answer"] as? String else { fatalError("Error: Answer does not exit!") }
             guard let question = selectedQuestionDict["Question"] as? String else { fatalError("Error: Answer does not exit!") }
-            guard let optionButtons = optionButtons else { fatalError("Option buttons not available") }
             
             questions.removeAll { element in
                  guard let questionToBeRemoved = element["Question"] as? String else { fatalError("Question does not exist!") }
@@ -188,7 +266,6 @@ class ViewController: UIViewController {
                 responseField.textColor = UIColor(red: 253/255.0, green: 162/255.0, blue: 104/255.0, alpha: 1.0)
                 responseField.text = "Sorry, wrong answer!"
             }
-            
             loadNextRound(delay: 2)
         }
     }
