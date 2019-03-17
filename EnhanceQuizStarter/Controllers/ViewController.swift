@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var responseLabel: UILabel!
-    @IBOutlet var optionButtons: Array<UIButton>?
+    @IBOutlet var optionButtons: Array<UIButton>!
     @IBOutlet weak var playAgainButton: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     
@@ -48,13 +48,6 @@ class ViewController: UIViewController {
      - Returns: Void
      */
     func displayQuestion() {
-        if gameManager.questionsAsked == gameManager.gameQuestions.count {
-            displayScore()
-            return
-        }
-        
-        guard let optionButtons = optionButtons else { fatalError("Option buttons not available") }
-        
         for button in optionButtons {
             button.isEnabled = true
         }
@@ -162,10 +155,9 @@ class ViewController: UIViewController {
      - Returns: Void
      */
     func resetButtons() {
-        guard let optionButtons = optionButtons else { fatalError("Option buttons not available") }
         
-        for i in 0..<optionButtons.count {
-            optionButtons[i].layer.borderWidth = 0
+        for button in optionButtons {
+            button.layer.borderWidth = 0
         }
         
         responseLabel.text = ""
@@ -196,7 +188,6 @@ class ViewController: UIViewController {
      - Returns: Void
      */
     func showAnswer() {
-        guard let optionButtons = optionButtons else { fatalError("Option buttons not available") }
         let correctAnswer = gameManager.gameQuestions[gameManager.questionsAsked].answer
         
         for button in optionButtons {
@@ -222,16 +213,12 @@ class ViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func checkAnswer(_ sender: UIButton) {
-        
-        guard let optionButtons = optionButtons else { fatalError("Option buttons not available") }
-        
         // Enable all buttons
         for button in optionButtons {
             button.isEnabled = false
         }
         
-        let correctAnswer = gameManager.gameQuestions[gameManager.questionsAsked].answer
-        if (correctAnswer == sender.currentTitle) {
+        if gameManager.userGuessedCorrectly(playerAnswer: sender.currentTitle!) {
             sounds.playCorrectGameSound()
             gameManager.correctQuestions += 1
     
