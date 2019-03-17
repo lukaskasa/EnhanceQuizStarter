@@ -165,9 +165,9 @@
                     </view>
                     <connections>
                         <outlet property="playAgainButton" destination="eic-Nx-foS" id="fZz-Md-Y70"/>
-                        <outlet property="questionField" destination="dCF-BL-dDa" id="HIQ-UX-KNe"/>
-                        <outlet property="responseField" destination="ogt-aw-r6r" id="VZG-xw-eWy"/>
-                        <outlet property="timeDisplay" destination="P0j-WR-zIg" id="JPz-M7-twe"/>
+                        <outlet property="questionLabel" destination="dCF-BL-dDa" id="cul-lN-Ncv"/>
+                        <outlet property="responseLabel" destination="ogt-aw-r6r" id="bLo-4J-eoZ"/>
+                        <outlet property="timeLabel" destination="P0j-WR-zIg" id="7bH-MZ-JaA"/>
                         <outletCollection property="optionButtons" destination="CSn-ih-qRR" collectionClass="NSMutableArray" id="P7n-z7-CD0"/>
                         <outletCollection property="optionButtons" destination="qYh-2d-v8I" collectionClass="NSMutableArray" id="qd3-RX-Zfd"/>
                         <outletCollection property="optionButtons" destination="eCl-jQ-oDe" collectionClass="NSMutableArray" id="ZHr-SN-2hJ"/>
