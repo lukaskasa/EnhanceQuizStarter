@@ -17,29 +17,59 @@ struct Sounds {
     var correctGameSound: SystemSoundID = 0
     var wrongGameSound: SystemSoundID = 0
     
+    /**
+     Load Start Game Sound
+     
+     - Returns: Void
+     */
     mutating func loadGameStartSound() {
         let soundUrl = URL(fileURLWithPath: startSoundPath!)
         AudioServicesCreateSystemSoundID(soundUrl as CFURL, &self.gameSound)
     }
     
+    /**
+     Load Correct Game Sound
+     
+     - Returns: Void
+     */
     mutating func loadCorrectGameSound() {
         let soundUrl = URL(fileURLWithPath: correctSoundPath!)
         AudioServicesCreateSystemSoundID(soundUrl as CFURL, &self.correctGameSound)
     }
     
+    /**
+     Load Wrong Game Sound
+     
+     - Returns: Void
+     */
     mutating func loadWrongGameSound() {
         let soundUrl = URL(fileURLWithPath: wrongSoundPath!)
         AudioServicesCreateSystemSoundID(soundUrl as CFURL, &self.wrongGameSound)
     }
     
+    /**
+     Play Start Game Sound
+     
+     - Returns: Void
+     */
     func playGameStartSound() {
         AudioServicesPlaySystemSound(gameSound)
     }
     
+    /**
+     Play Correct Game Sound
+     
+     - Returns: Void
+     */
     func playCorrectGameSound() {
         AudioServicesPlaySystemSound(correctGameSound)
     }
     
+    /**
+     Play Wrong Game Sound
+     
+     - Returns: Void
+     */
     func playWrongGameSound() {
         AudioServicesPlaySystemSound(wrongGameSound)
     }

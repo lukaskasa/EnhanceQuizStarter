@@ -27,9 +27,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Load all game sounds
         sounds.loadGameStartSound()
         sounds.loadCorrectGameSound()
         sounds.loadWrongGameSound()
+        // Play start game sound
         sounds.playGameStartSound()
         
         displayQuestion()
@@ -104,12 +106,10 @@ class ViewController: UIViewController {
         
         // Stop The Timer
         if gameManager.timePerQuestion == 0 {
-            
             sounds.playWrongGameSound()
             showAnswer()
             pauseTimer(for: 2)
             loadNextRound(delay: 2)
-            
             gameManager.questionsAsked += 1
             gameManager.timePerQuestion = timePerQuestion
         }
@@ -221,7 +221,7 @@ class ViewController: UIViewController {
         if gameManager.userGuessedCorrectly(playerAnswer: sender.currentTitle!) {
             sounds.playCorrectGameSound()
             gameManager.correctQuestions += 1
-    
+            // Update UI - Correct answer
             sender.layer.borderWidth = 2.0
             responseLabel.textColor = colors.correctGreen
             sender.layer.borderColor = colors.correctGreen.cgColor
@@ -230,7 +230,7 @@ class ViewController: UIViewController {
         } else {
             sounds.playWrongGameSound()
             showAnswer()
-            
+            // Update UI - Wrong answer
             sender.layer.borderWidth = 2.0
             sender.layer.borderColor = colors.incorrectRed.cgColor
             responseLabel.textColor = colors.incorrectRed
@@ -238,7 +238,6 @@ class ViewController: UIViewController {
         }
         
         loadNextRound(delay: 2)
-    
         // Increment the questions asked counter
         gameManager.questionsAsked += 1
     }
