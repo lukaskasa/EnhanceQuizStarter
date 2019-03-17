@@ -213,10 +213,15 @@ class ViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func checkAnswer(_ sender: UIButton) {
+        // Pause timer for seconds to make sure "wrong" sound is not fired multiple times
+        pauseTimer(for: 2)
         // Enable all buttons
         for button in optionButtons {
             button.isEnabled = false
+            button.setTitleColor(colors.whiteDisabled, for: .disabled)
         }
+        // Set the title color of selected option to alpha 1.0
+        sender.setTitleColor(UIColor.white, for: .disabled)
         
         if gameManager.userGuessedCorrectly(playerAnswer: sender.currentTitle!) {
             sounds.playCorrectGameSound()

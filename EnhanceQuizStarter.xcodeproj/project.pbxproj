@@ -74,8 +74,8 @@
 				8072D1F3223E33D7005B5D05 /* GameManager.swift */,
 				80A5954E223564D4003A2FD3 /* Questions.swift */,
 				8072D1F5223E3D2A005B5D05 /* Question.swift */,
-				8072D1EF223D3E11005B5D05 /* Colors.swift */,
 				8072D1F1223D3ECF005B5D05 /* Sounds.swift */,
+				8072D1EF223D3E11005B5D05 /* Colors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
