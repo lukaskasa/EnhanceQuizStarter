@@ -6,65 +6,44 @@
 //  Copyright © 2019 Treehouse. All rights reserved.
 //
 
-import Foundation
-import GameKit
-
 struct Questions {
     
-    let trivia: [[String : Any]] = [
-        // Options - 3/4
-        ["Question": "This was the only US President to serve more than two consecutive terms.",
-         "Options": ["George Washington", "Franklin D. Roosevelt", "Woodrow Wilson", "Andrew Jackson"],
-         "Answer": "Franklin D. Roosevelt"],
-        ["Question": "Which of the following countries has the most residents?",
-         "Options": ["Nigeria", "Russia", "Iran", "Vietnam"],
-         "Answer": "Nigeria"],
-        ["Question": "In what year was the United Nations founded?",
-         "Options": ["1918", "1919", "1945", "1954"],
-         "Answer": "1945"],
-        ["Question": "The Titanic departed from the United Kingdom, where was it supposed to arrive?",
-         "Options": ["Paris", "Washington D.C.", "New York City", "Boston"],
-         "Answer": "New York City"],
-        ["Question": "Which nation produces the most oil?",
-         "Options": ["Iran", "Iraq", "Brazil", "Canada"],
-         "Answer": "Canada"],
-        ["Question": "Which country has most recently won consecutive World Cups in Soccer?",
-         "Options": ["Italy", "Brazil", "Argetina", "Spain"],
-         "Answer": "Brazil"],
-        ["Question": "Which of the following rivers is longest?",
-         "Options": ["Yangtze", "Mississippi", "Congo", "Mekong"],
-         "Answer": "Mississippi"],
-        ["Question": "Which city is the oldest?",
-         "Options": ["Mexico City", "Cape Town", "San Juan", "Sydney"],
-         "Answer": "Mexico City"],
-        ["Question": "Which country was the first to allow women to vote in national elections?",
-         "Options": ["Poland", "United States", "Sweden", "Senegal"],
-         "Answer": "Poland"],
-        ["Question": "Which of these countries won the most medals in the 2012 Summer Games?",
-         "Options": ["France", "Germany", "Japan", "Great Britian"],
-         "Answer": "Great Britian"],
-        ["Question": "In what year was Apple founded in California?",
-         "Options": ["1955", "1976", "2000"],
-         "Answer": "1976"],
-        ["Question": "Is it true that the Earth is flat?",
-         "Options": ["Yes", "No"],
-         "Answer": "No"]
+    let trivia: [Question] = [
+        Question(question: "This was the only US President to serve more than two consecutive terms.",
+                 options: ["George Washington", "Franklin D. Roosevelt", "Woodrow Wilson", "Andrew Jackson"],
+                 answer: "Franklin D. Roosevelt"),
+        Question(question: "Which of the following countries has the most residents?",
+                 options: ["Nigeria", "Russia", "Iran", "Vietnam"],
+                 answer: "Nigeria"),
+        Question(question: "In what year was the United Nations founded?",
+                 options: ["1918", "1919", "1945", "1954"],
+                 answer: "1945"),
+        Question(question: "The Titanic departed from the United Kingdom, where was it supposed to arrive?",
+                 options: ["Paris", "Washington D.C.", "New York City", "Boston"],
+                 answer: "New York City"),
+        Question(question: "Which nation produces the most oil?",
+                 options: ["Iran", "Iraq", "Brazil", "Canada"],
+                 answer: "Canada"),
+        Question(question: "Which country has most recently won consecutive World Cups in Soccer?",
+                 options: ["Italy", "Brazil", "Argetina", "Spain"],
+                 answer: "Brazil"),
+        Question(question: "Which of the following rivers is longest?",
+                 options: ["Yangtze", "Mississippi", "Congo", "Mekong"],
+                 answer: "Mississippi"),
+        Question(question: "Which city is the oldest?",
+                 options: ["Mexico City", "Cape Town", "San Juan", "Sydney"],
+                 answer: "Mexico City"),
+        Question(question: "Which country was the first to allow women to vote in national elections?",
+                 options: ["Poland", "United States", "Sweden", "Senegal"],
+                 answer: "Poland"),
+        Question(question: "Which of these countries won the most medals in the 2012 Summer Games?",
+                 options: ["France", "Germany", "Japan", "Great Britian"],
+                 answer: "Great Britian"),
+        Question(question: "In what year was Apple founded in California?",
+                 options: ["1955", "1976", "2000"],
+                 answer: "1976"),
+        Question(question: "Is the Earth flat?",
+                 options: ["Yes", "No"],
+                 answer: "No")
     ]
-    
-    func getQuestions(numberOfQuestions: Int) -> [[String : Any]] {
-        var gameQuestions = [[String : Any]]()
-        var trivia = self.trivia
-        trivia.shuffle()
-        
-        if numberOfQuestions > trivia.count { return trivia }
-        
-        //let randomIndex = GKRandomSource.sharedRandom().nextInt(upperBound: trivia.count)
-        
-        for i in 0...numberOfQuestions {
-            gameQuestions.append(trivia[i])
-        }
-        
-        return gameQuestions
-    }
-    
 }
